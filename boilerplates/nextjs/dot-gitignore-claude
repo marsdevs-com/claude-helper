@@ -1,0 +1,39 @@
+# Claude Code gitignore — Next.js template by MarsDevs (www.marsdevs.com)
+
+# Claude Code — personal/local files (do NOT commit)
+.claude/settings.local.json
+.claude/statsig/
+.claude/todos.md
+
+# Next.js
+.next/
+out/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.production
+.env.development.local
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+coverage/
+playwright-report/
+test-results/
+
+# Misc
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# Claude Code — these ARE safe to commit:
+# .claude/settings.json       (shared team settings, hooks)
+# .claude/rules/               (shared team rules)
+# .claude/agents/              (shared custom agents)
+# CLAUDE.md                    (project-level instructions)

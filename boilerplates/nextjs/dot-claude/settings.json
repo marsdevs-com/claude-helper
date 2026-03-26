@@ -1,0 +1,49 @@
+{
+  "_comment": "Next.js Claude Code settings by MarsDevs (www.marsdevs.com)",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm test:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(npx tsc --noEmit:*)",
+      "Bash(npx prisma generate:*)",
+      "Bash(npx prisma format:*)",
+      "Bash(npx prisma studio:*)",
+      "Bash(npx prettier:*)",
+      "Bash(npx eslint:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": []
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.(ts|tsx|js|jsx|json|css|md)$'; then npx prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null; fi || true"
+          },
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '\\.(ts|tsx|js|jsx)$'; then npx eslint --fix \"$CLAUDE_FILE_PATH\" 2>/dev/null; fi || true"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '(pnpm-lock\\.yaml|package-lock\\.json|yarn\\.lock|node_modules/|\\.next/|prisma/migrations/)'; then echo 'BLOCKED: Do not edit lock files, node_modules, .next build output, or applied migrations.'; exit 1; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

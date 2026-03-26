@@ -1,0 +1,38 @@
+# Claude Code gitignore — FastAPI template by MarsDevs (www.marsdevs.com)
+
+# Claude Code — personal/local files (do NOT commit)
+.claude/settings.local.json
+.claude/statsig/
+.claude/todos.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+.venv/
+venv/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Database
+*.db
+*.sqlite3
+
+# Claude Code — these ARE safe to commit:
+# .claude/settings.json       (shared team settings, hooks)
+# .claude/rules/               (shared team rules)
+# .claude/agents/              (shared custom agents)
+# CLAUDE.md                    (project-level instructions)

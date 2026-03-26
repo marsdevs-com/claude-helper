@@ -1,0 +1,40 @@
+{
+  "_comment": "Claude Code settings template by MarsDevs (www.marsdevs.com)",
+  "permissions": {
+    "allow": [
+      "Bash(npm test:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npx tsc --noEmit:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ],
+    "deny": []
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "# TODO: Uncomment and adjust for your formatter:\n# npx prettier --write \"$CLAUDE_FILE_PATH\"\n# ruff format \"$CLAUDE_FILE_PATH\"\n# gofmt -w \"$CLAUDE_FILE_PATH\"\necho '[hook] Auto-format: configure your formatter in .claude/settings.json'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "# Block edits to lock files and generated code\nif echo \"$CLAUDE_FILE_PATH\" | grep -qE '(package-lock\\.json|yarn\\.lock|pnpm-lock\\.yaml|\\.generated\\.|/generated/)'; then\n  echo 'BLOCKED: This file should not be edited directly by Claude.'\n  exit 1\nfi"
+          }
+        ]
+      }
+    ]
+  }
+}

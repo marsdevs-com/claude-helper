@@ -1,0 +1,11 @@
+# Claude Code gitignore — by MarsDevs (www.marsdevs.com)
+# Claude Code — personal/local files (do NOT commit)
+.claude/settings.local.json
+.claude/statsig/
+.claude/todos.md
+
+# Claude Code — these ARE safe to commit:
+# .claude/settings.json       (shared team settings, hooks)
+# .claude/rules/               (shared team rules)
+# .claude/agents/              (shared custom agents)
+# CLAUDE.md                    (project-level instructions)
