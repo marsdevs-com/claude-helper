@@ -1,0 +1,49 @@
+# Claude Code gitignore — Full-stack template by MarsDevs (www.marsdevs.com)
+
+# Claude Code — personal/local files (do NOT commit)
+.claude/settings.local.json
+.claude/statsig/
+.claude/todos.md
+
+# Environment / Secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+coverage/
+htmlcov/
+.pytest_cache/
+playwright-report/
+test-results/
+
+# Infrastructure (local)
+*.tfstate
+*.tfstate.backup
+
+# Misc
+.DS_Store
+*.tsbuildinfo
+
+# Claude Code — these ARE safe to commit:
+# .claude/settings.json       (shared team settings, hooks)
+# .claude/rules/               (shared team rules)
+# .claude/agents/              (shared custom agents)
+# CLAUDE.md                    (project-level instructions)

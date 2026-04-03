@@ -36,6 +36,16 @@ cat boilerplates/nextjs/dot-gitignore-claude >> your-project/.gitignore
 
 Includes: Prettier + ESLint auto-format hooks, Server vs Client component rules, App Router patterns, Server Actions with Zod validation, Vitest + RTL testing standards, Prisma migration guards.
 
+### Full-Stack (Framework-Agnostic)
+
+```bash
+cp boilerplates/full-stack/CLAUDE.md your-project/CLAUDE.md
+cp -r boilerplates/full-stack/dot-claude your-project/.claude
+cat boilerplates/full-stack/dot-gitignore-claude >> your-project/.gitignore
+```
+
+Includes: 17 specialized agents (architect, reviewer, devops, test engineer, refactorer, security auditor, product thinker, doc writer, troubleshooter, database architect, performance profiler, dependency manager, PR writer, E2E designer, regression analyzer, accessibility auditor, fixture builder), architecture rules, security rules, secrets-blocking hooks, multi-language formatter hooks.
+
 Then customize every `<!-- TODO -->` marker in the copied files.
 
 ---
@@ -91,6 +101,79 @@ Then customize every `<!-- TODO -->` marker in the copied files.
 | [dot-claude/rules/testing.md](boilerplates/nextjs/dot-claude/rules/testing.md) | Vitest + React Testing Library + Playwright patterns |
 | [dot-claude/agents/](boilerplates/nextjs/dot-claude/agents/) | Agents: component-builder, reviewer, researcher |
 | [dot-gitignore-claude](boilerplates/nextjs/dot-gitignore-claude) | Next.js + Claude .gitignore |
+
+### Full-Stack (Framework-Agnostic)
+
+| File | Purpose |
+|------|---------|
+| [CLAUDE.md](boilerplates/full-stack/CLAUDE.md) | Full-stack project template with layered architecture and agent workflow |
+| [dot-claude/settings.json](boilerplates/full-stack/dot-claude/settings.json) | Multi-language hooks, secrets blocking, broad permissions |
+| [dot-claude/rules/architecture.md](boilerplates/full-stack/dot-claude/rules/architecture.md) | Clean architecture, dependency direction, layer boundaries |
+| [dot-claude/rules/security.md](boilerplates/full-stack/dot-claude/rules/security.md) | Security hygiene: no secrets, validate input, parameterize queries |
+| [dot-claude/rules/code-review.md](boilerplates/full-stack/dot-claude/rules/code-review.md) | Review checklist with architecture and security checks |
+| [dot-claude/rules/testing.md](boilerplates/full-stack/dot-claude/rules/testing.md) | Framework-agnostic testing standards |
+| [dot-claude/rules/commits.md](boilerplates/full-stack/dot-claude/rules/commits.md) | Conventional commits with full-stack scopes |
+| [dot-claude/agents/](boilerplates/full-stack/dot-claude/agents/) | 17 agents: system-architect, code-reviewer, devops, test-engineer, refactorer, security-auditor, product-thinker, doc-writer, troubleshooter, database-architect, performance-profiler, dependency-manager, pr-writer, e2e-designer, regression-analyzer, accessibility-auditor, fixture-builder |
+| [dot-gitignore-claude](boilerplates/full-stack/dot-gitignore-claude) | Full-stack .gitignore (JS + Python + infra + Claude) |
+
+## Using Agents
+
+After copying a boilerplate into your project, invoke any agent with `/agent:<name>`:
+
+```bash
+# Think before building
+/agent:product-thinker "Should we add a notifications system or can we solve this with email?"
+
+# Design the architecture
+/agent:system-architect "Design the architecture for a real-time notifications system with trade-offs"
+
+# Design the database schema
+/agent:database-architect "Design schema for notifications — user preferences, delivery channels, read status"
+
+# Write the code, then get it reviewed
+/agent:code-reviewer "Review the changes in the last commit"
+
+# Debug a failing feature
+/agent:troubleshooter "NotificationService.send() throws 'channel not found' — here's the stack trace: ..."
+
+# Security check before launch
+/agent:security-auditor "Audit the notifications module — especially the webhook endpoint"
+
+# Find performance issues
+/agent:performance-profiler "The notifications list endpoint is slow with 1000+ notifications"
+
+# Write tests
+/agent:test-engineer "Write tests for NotificationService covering all delivery channels"
+
+# Design E2E scenarios (for QA)
+/agent:e2e-designer "Design E2E test scenarios for the notification preferences page"
+
+# Check what could break
+/agent:regression-analyzer "We changed the notification delivery logic — what else could be affected?"
+
+# Audit accessibility
+/agent:accessibility-auditor "Audit the notification bell dropdown and preferences form"
+
+# Create test fixtures
+/agent:fixture-builder "Create test data for users with various notification preferences and histories"
+
+# Set up CI/CD
+/agent:devops "Add a GitHub Actions workflow for lint, test, build, and deploy"
+
+# Audit dependencies
+/agent:dependency-manager "Audit our dependencies for outdated packages and CVEs"
+
+# Write PR description
+/agent:pr-writer "Write PR description for this branch"
+
+# Clean up messy code
+/agent:refactorer "Simplify the notification routing logic in src/services/notifications/"
+
+# Write docs
+/agent:doc-writer "Document the notifications module — API endpoints and webhook integration"
+```
+
+You can also spawn multiple agents in parallel for independent tasks. See [Chapter 06 — Subagents](playbook/06-subagents.md) for details.
 
 ## How to Use
 

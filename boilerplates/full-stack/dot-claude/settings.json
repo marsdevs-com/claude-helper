@@ -1,0 +1,59 @@
+{
+  "_comment": "Full-stack Claude Code settings by MarsDevs (www.marsdevs.com)",
+  "permissions": {
+    "allow": [
+      "Bash(npm test:*)",
+      "Bash(npm run test:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npx tsc --noEmit:*)",
+      "Bash(pytest:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(ruff check:*)",
+      "Bash(ruff format:*)",
+      "Bash(docker compose config:*)",
+      "Bash(docker compose ps:*)",
+      "Bash(docker build:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(make:*)"
+    ],
+    "deny": []
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '(package-lock\\.json|yarn\\.lock|pnpm-lock\\.yaml|poetry\\.lock|requirements\\.lock|\\.generated\\.|\\.g\\.ts|/generated/|/migrations/|/node_modules/|/dist/|/build/|\\.next/)'; then echo 'BLOCKED: Do not edit lock files, generated code, migrations, build output, or node_modules.'; exit 1; fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_FILE_PATH\" | grep -qE '(\\.env$|\\.env\\.[^e]|credentials|secrets|.*\\.pem|.*\\.key)$'; then echo 'BLOCKED: Do not create or edit files containing secrets, credentials, or private keys.'; exit 1; fi"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "# TODO: Uncomment the formatter for your stack:\n# npx prettier --write \"$CLAUDE_FILE_PATH\"\n# ruff format \"$CLAUDE_FILE_PATH\" 2>/dev/null && ruff check --fix \"$CLAUDE_FILE_PATH\" 2>/dev/null\n# gofmt -w \"$CLAUDE_FILE_PATH\"\necho '[hook] Configure your formatter in .claude/settings.json'"
+          }
+        ]
+      }
+    ]
+  }
+}
